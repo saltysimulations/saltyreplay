@@ -1,2 +1,4 @@
 /target
 /web-view
+/src/web/node_modules
+/src/web/build

@@ -19,6 +19,8 @@ pub struct AircraftData {
     pub heading: f64,
 }
 
+// TODO: Rewrite the whole JSON reading and writing system to use proper JSON syntax, instead of having an object each line and having it read that
+// TODO: Write a system to record (and play) data consinstantly, instead of every frame. Currently, the speed of the replay is determined by FPS. 
 impl AircraftData {
     pub fn initialize_data(conn: &mut simconnect::SimConnector) {
         conn.add_data_definition(
@@ -85,33 +87,11 @@ impl AircraftData {
     }
 
     pub fn read_from_json(mut file: &fs::File, line_index: usize, conn: &simconnect::SimConnector) {
-        /*let content = BufReader::new(file);
-        let mut lines = content.lines();
-        let line = lines.nth(line_index).expect("ttt").ok().unwrap();
-        println!("{}", line);
-        let parsed = json::parse(&line).unwrap();
-        let data = AircraftData {
-            latitude: parsed["latitude"].to_string().parse::<f64>().unwrap(),
-            longitude: parsed["longitude"].to_string().parse::<f64>().unwrap(),
-            altitude: parsed["altitude"].to_string().parse::<f64>().unwrap(),
-            bank: parsed["bankAngle"].to_string().parse::<f64>().unwrap(),
-            pitch: parsed["pitch"].to_string().parse::<f64>().unwrap(),
-            heading: parsed["heading"].to_string().parse::<f64>().unwrap(),
-        };
-        data*/
         let mut data = String::new();
-        file.read_to_string(&mut data).expect("sdfsdfsdf");
-        let parsed: Value = serde_json::from_str(&data[..]).expect("sdf");
-        println!("{}", parsed["data"][3]["latitude"]);
-        let object_data = &parsed["data"][line_index];
-        let mut data = AircraftData {
-            latitude: object_data["latitude"].to_string().parse::<f64>().unwrap(),
-            longitude: object_data["longitude"].to_string().parse::<f64>().unwrap(),
-            altitude: object_data["altitude"].to_string().parse::<f64>().unwrap(),
-            bank: object_data["bankAngle"].to_string().parse::<f64>().unwrap(),
-            pitch: object_data["pitch"].to_string().parse::<f64>().unwrap(),
-            heading: object_data["heading"].to_string().parse::<f64>().unwrap(),
-        };
+        file.read_to_string(&mut data).expect("Failed to read file");
+        let parsed: Value = serde_json::from_str(&data[..]).expect("Failed to parse JSON data");
+
+        // This is only for testing purposes currently, and should be replaced.
         let mut index = 0;
         while index < 200 {
             aircraft_movement::update_aircraft(

@@ -1,0 +1,46 @@
+{
+  "replays": [
+    {
+      "id": 1,
+      "timestamp": "15/12/2020 16:10",
+      "length": "00:47",
+      "aircraft": "A32N",
+      "area": "ENZV"
+    },
+    {
+      "id": 2,
+      "timestamp": "15/12/2020 14:20",
+      "length": "00:23",
+      "aircraft": "B738",
+      "area": "ENGM"
+    },
+    {
+      "id": 3,
+      "timestamp": "15/12/2020 14:00",
+      "length": "00:23",
+      "aircraft": "B738",
+      "area": "ENGM"
+    },
+    {
+      "id": 4,
+      "timestamp": "15/12/2020 14:00",
+      "length": "00:23",
+      "aircraft": "B738",
+      "area": "ENGM"
+    },
+    {
+      "id": 5,
+      "timestamp": "15/12/2020 14:00",
+      "length": "00:23",
+      "aircraft": "B738",
+      "area": "ENGM"
+    },
+    {
+      "id": 6,
+      "timestamp": "15/12/2020 14:00",
+      "length": "00:23",
+      "aircraft": "B738",
+      "area": "ENGM"
+    }
+  ]
+}
