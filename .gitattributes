@@ -1,3 +1,4 @@
 *.c linguist-vendored
 *.cpp linguist-vendored
 *.h linguist-vendored
+*.jsx linguist-language=JavaScript
