@@ -1,4 +1,4 @@
-# <img src="https://cdn.discordapp.com/attachments/787690098497945600/787690654791893022/salty_big.png" placeholder="SaltyReplay" width="200"/>
+# <img src="https://cdn.discordapp.com/attachments/787690098497945600/787693736452423690/salty_big_nobg.png" placeholder="SaltyReplay" width="200"/>
 
 [![Discord](https://img.shields.io/discord/698720578055700650?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2&style=flat-square)](https://discord.gg/S4PJDwk)
 
