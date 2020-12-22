@@ -191,13 +191,8 @@ button {
   transition: ease 0.3s;
 }
 
-.replay-play-button svg:hover {
+.replay-play-button svg:hover, .small-replay-play-button svg:hover {
   fill: #202020;
-
-}
-
-.replay-play-button img .st0:hover {
-  fill: #404040;
 }
 
 .small-replay-play-button {
@@ -209,6 +204,8 @@ button {
 .small-replay-play-button svg {
   height: 60px;
   width: 60px;
+  fill: #ffffff;
+  transition: ease 0.3s;
 }
 
 .latest {

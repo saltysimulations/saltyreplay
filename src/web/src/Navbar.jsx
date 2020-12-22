@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import salty from "./images/salty.png";
 import rec from "./images/rec.png";
-import play from "./images/play.png";
+import play from "./images/play.svg";
 import options from "./images/options.png";
 
 const Navbar = () => {

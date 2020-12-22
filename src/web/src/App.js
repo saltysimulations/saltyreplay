@@ -2,7 +2,7 @@ import Navbar from "./Navbar";
 import Playbar from "./Playbar";
 import RecordPage from "./RecordPage";
 import ReplaysPage from "./ReplaysPage";
-import play from "./images/play.png";
+import play from "./images/play.svg";
 import rec from "./images/rec.png";
 import pause from "./images/pause.svg";
 import stop from "./images/stop.svg";

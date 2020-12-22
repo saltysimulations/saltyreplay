@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import play from "./images/play.png";
+import play from "./images/play.svg";
 import pause from "./images/pause.svg";
 import replays from "./replays.json";
 
@@ -12,6 +12,8 @@ const ReplaysPage = () => {
       <div className="replays">
         {replays.replays.map((replay) => {
           let imgSize = "small-replay-play-button";
+
+          // Temporary solution, just for setting the proper image size for the big tiles.
           if (replay.id === 1 || replay.id === 4) {
             imgSize = "replay-play-button";
           }
@@ -24,15 +26,22 @@ const ReplaysPage = () => {
 
 const Replay = (props) => {
   const { timestamp, length, area, aircraft } = props.data;
-  const [playing, setPlaying] = useState(play);
+  const [playing, setPlaying] = useState(false);
 
   const handlePlay = () => {
-    if (playing === play) {
-      setPlaying(pause);
+    console.log(playing);
+    if (playing) {
+      setPlaying(false);
     } else {
-      setPlaying(play);
+      setPlaying(true);
     }
   };
+
+  const evaluateImage = () => {
+    return playing ? <Pause /> : <Play />;
+  };
+
+  const test = evaluateImage();
 
   return (
     <div className="replay">
@@ -49,7 +58,7 @@ const Replay = (props) => {
         </h4>
       </div>
       <div className={props.imgSize} onClick={handlePlay}>
-        <Pause fill="#404040"></Pause>
+        {test}
       </div>
     </div>
   );
@@ -57,16 +66,38 @@ const Replay = (props) => {
 
 const Pause = (props) => {
   return (
-<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
-	 viewBox="0 0 4096 4096">
-<g>
-	<rect x="758" y="422" className="st0" width="928" height="3252"/>
-</g>
-<g>
-	<rect x="2410" y="422" className="st0" width="928" height="3252"/>
-</g>
-</svg>
+    <svg
+      version="1.1"
+      id="Layer_1"
+      xmlns="http://www.w3.org/2000/svg"
+      x="0px"
+      y="0px"
+      viewBox="0 0 4096 4096"
+    >
+      <g>
+        <rect x="758" y="422" className="st0" width="928" height="3252" />
+      </g>
+      <g>
+        <rect x="2410" y="422" className="st0" width="928" height="3252" />
+      </g>
+    </svg>
   );
-}
+};
+
+const Play = (props) => {
+  return (
+    <svg
+      version="1.1"
+      id="play-svg"
+      xmlns="http://www.w3.org/2000/svg"
+      x="0px"
+      y="0px"
+      viewBox="0 0 4096 4096"
+    >
+      <polygon className="st0" points="1223,1822.8 2712,1822.8 1223,841.8 " />
+      <polygon className="st0" points="1223,2072 2712,2072 1223,3053 " />
+    </svg>
+  );
+};
 
 export default ReplaysPage;
