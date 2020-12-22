@@ -4,6 +4,7 @@ mod simconnect_data;
 use actix_files as fs;
 use actix_web::{App, HttpServer};
 use simconnect;
+use simconnect_data::AircraftData;
 use std::{
     fs::{File, OpenOptions},
     thread,
@@ -61,9 +62,10 @@ fn main() {
         .run()
         .unwrap();
 
-    // PLAYING (for testing purposes)
     // AircraftData::initialize_data(&mut conn);
-    // AircraftData::read_from_json(&mut file_to_read, 1, &conn);
+
+    // PLAYING (for testing purposes)
+    // AircraftData::read_from_json(&mut _file_to_read, &conn);
 
     // RECORDING (for testing purposes)
     /* loop {

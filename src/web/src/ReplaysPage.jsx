@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import play from "./images/play.svg";
-import pause from "./images/pause.svg";
 import replays from "./replays.json";
 
 const ReplaysPage = () => {
@@ -41,7 +39,7 @@ const Replay = (props) => {
     return playing ? <Pause /> : <Play />;
   };
 
-  const test = evaluateImage();
+  const image = evaluateImage();
 
   return (
     <div className="replay">
@@ -58,7 +56,7 @@ const Replay = (props) => {
         </h4>
       </div>
       <div className={props.imgSize} onClick={handlePlay}>
-        {test}
+        {image}
       </div>
     </div>
   );

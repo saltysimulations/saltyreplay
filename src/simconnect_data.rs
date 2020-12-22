@@ -19,7 +19,7 @@ pub struct AircraftData {
     pub heading: f64,
 }
 
-// TODO: Rewrite the whole JSON reading and writing system to use proper JSON syntax, instead of having an object each line and having it read that
+// TODO: Rewrite the whole JSON writing system to use proper JSON syntax, instead of having an object each line and having it read that
 // TODO: Write a system to record (and play) data consinstantly, instead of every frame. Currently, the speed of the replay is determined by FPS. 
 impl AircraftData {
     pub fn initialize_data(conn: &mut simconnect::SimConnector) {
@@ -86,7 +86,7 @@ impl AircraftData {
         .unwrap();
     }
 
-    pub fn read_from_json(mut file: &fs::File, line_index: usize, conn: &simconnect::SimConnector) {
+    pub fn read_from_json(mut file: &fs::File, conn: &simconnect::SimConnector) {
         let mut data = String::new();
         file.read_to_string(&mut data).expect("Failed to read file");
         let parsed: Value = serde_json::from_str(&data[..]).expect("Failed to parse JSON data");
