@@ -1,4 +1,6 @@
-# <img src="https://cdn.discordapp.com/attachments/787690098497945600/787693736452423690/salty_big_nobg.png" placeholder="SaltyReplay" width="200"/>
+# <img src="https://cdn.discordapp.com/attachments/787690098497945600/787690654791893022/salty_big.png" placeholder="SaltyReplay" width="200"/>
+
+[![Discord](https://img.shields.io/discord/698720578055700650?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2&style=flat-square)](https://discord.gg/S4PJDwk)
 
 ## About
 SaltyReplay is a free and open source replay system for Microsoft Flight Simulator. Because replays are one of the most requested features for MSFS, we are developing a replay system that will be beneficial to the community at no cost.
@@ -45,4 +47,4 @@ A: Short answer is that the average simmer shouldn't. SaltyReplay is not in a we
 A: Firstly, join our Discord at the top of the readme and do the setup process mentioned above. The list of major issues is located at the top of this readme, and all issues, bugs and requests are handled through GitHub issues. 
 
 ## License
-All contents of this repository are licensed under the GNU General Public License version 3. See LICENSE. For the contents of the "web-view" directory, this copyright notice applies (Originally distributed under MIT). The use of the web-view library locally is temporary, as a slightly older version has to be used in order to avoid a bug.
+All contents of this repository are licensed under the GNU General Public License version 3. See [LICENSE](https://github.com/saltysimulations/saltyreplay/blob/master/LICENSE). For the contents of the "web-view" directory, [this copyright notice](https://github.com/saltysimulations/saltyreplay/blob/master/web-view/NOTICE) applies (Originally distributed under MIT). The use of the web-view library locally is temporary, as a slightly older version has to be used in order to avoid a bug.
