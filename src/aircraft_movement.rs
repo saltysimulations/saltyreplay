@@ -1,16 +1,9 @@
-use simconnect;
+use std::{pin::Pin, boxed::Box};
+use msfs::sim_connect::SIMCONNECT_OBJECT_ID_USER;
 
 use crate::simconnect_data::AircraftData;
 
-pub fn update_aircraft(conn: &simconnect::SimConnector, mut data: AircraftData) {
-    let pointer: *mut std::ffi::c_void = &mut data as *mut AircraftData as *mut std::ffi::c_void;
-    conn.set_data_on_sim_object(
-        0,
-        0,
-        0,
-        0,
-        std::mem::size_of::<AircraftData>() as u32,
-        pointer,
-    );
+pub fn update_aircraft(conn: &mut Pin<Box<msfs::sim_connect::SimConnect>>, data: AircraftData) {
+    conn.set_data_on_sim_object(SIMCONNECT_OBJECT_ID_USER, &data).unwrap();
     println!("{:?}", data);
 }

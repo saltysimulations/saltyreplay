@@ -1,17 +1,20 @@
-mod aircraft_movement;
-mod simconnect_data;
-
+use msfs::sim_connect::{
+    Period, SimConnect, SimConnectRecv, SIMCONNECT_OBJECT_ID_USER,
+};
 use actix_files as fs;
 use actix_web::{App, HttpServer};
-use simconnect;
-use simconnect_data::AircraftData;
+use simconnect_data::{AircraftData, JsonData};
 use std::{
     fs::{File, OpenOptions},
     thread,
     thread::sleep,
     time::Duration,
+    sync::{Arc, Mutex},
 };
 use web_view::*;
+
+mod aircraft_movement;
+mod simconnect_data;
 
 #[actix_web::main]
 async fn set_up_server() -> std::io::Result<()> {
@@ -22,22 +25,12 @@ async fn set_up_server() -> std::io::Result<()> {
 }
 
 fn main() {
-    let mut conn = simconnect::SimConnector::new();
-    conn.connect("FSReplay");
-
     thread::spawn(|| match set_up_server() {
         Ok(()) => Ok(()),
         Err(e) => Err(e),
     });
 
-    let _file = OpenOptions::new()
-        .write(true)
-        .append(true)
-        .create(true)
-        .open("data.fsreplay")
-        .unwrap();
-
-    let mut _file_to_read = File::open("data2.json").unwrap();
+    let mut _file_to_read = File::open("replay_example.json").unwrap();
 
     // TODO: Integrate the UI with the replay logic
     web_view::builder()
@@ -62,27 +55,37 @@ fn main() {
         .run()
         .unwrap();
 
-    // AircraftData::initialize_data(&mut conn);
+    let mut json_data = Arc::new(Mutex::new(JsonData {
+        data: Vec::new(),
+    }));
+
+    let mut sim = SimConnect::open("SaltyReplay",  move |sim, recv| match recv {
+        SimConnectRecv::SimObjectData(event) => match event.id() {
+            0 => {
+                // Write to file
+                /* let data = event.into::<AircraftData>(sim).unwrap();
+                let mut file = OpenOptions::new()
+                    .write(true)
+                    .append(false)
+                    .create(true)
+                    .open("data80.fsreplay")
+                    .unwrap();
+                json_data.lock().unwrap().data.push(*data);
+                json_data.lock().unwrap().write_to_json(&mut file) */
+            },
+            _ => {}
+        },
+        _ => {}
+    }).unwrap();
+
+    sim.request_data_on_sim_object::<AircraftData>(0, SIMCONNECT_OBJECT_ID_USER, Period::SimFrame).unwrap();
 
     // PLAYING (for testing purposes)
-    // AircraftData::read_from_json(&mut _file_to_read, &conn);
+    AircraftData::read_from_json(&mut _file_to_read, &mut sim);
 
     // RECORDING (for testing purposes)
-    /* loop {
-        //aircraft_movement::update_aircraft(&conn, sim_data);
-
-        match conn.get_next_message() {
-            Ok(simconnect::DispatchResult::SimobjectData(data)) => unsafe {
-                match data.dwDefineID {
-                    0 => {
-                        let sim_data: AircraftData = transmute_copy(&data.dwData);
-                        sim_data.write_to_json(&mut file);
-                    }
-                    _ => (),
-                }
-            },
-            _ => (),
-        }
-        sleep(Duration::from_millis(16));
-    } */
+    loop {
+        sim.call_dispatch().unwrap();
+        sleep(Duration::from_millis(10));
+    }
 }
