@@ -10,7 +10,6 @@ SaltyReplay is a **work in progress** and should not be used outside of testing 
 
 ## Major Issues
 ### Replays
-* The speed of replays is not correct. This is due to collecting data every frame instead of a set amount of time.
 * Active pause needs to be activated for the replay to be smooth
 * The only data that gets recorded for now is the position, bank angle, pitch, altitude and heading. Other data like gear, flaps, and other external animations will have to be added later. Although switches in the interior are planned in the future, this is one of the least prioritized things right now.
 ### UI
