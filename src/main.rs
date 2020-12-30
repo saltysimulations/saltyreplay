@@ -10,6 +10,7 @@ use std::{
     thread::sleep,
     time::Duration,
     sync::{Arc, Mutex},
+    time::{SystemTime, UNIX_EPOCH},
 };
 use web_view::*;
 
@@ -57,21 +58,34 @@ fn main() {
 
     let mut json_data = Arc::new(Mutex::new(JsonData {
         data: Vec::new(),
+        delta_times: Vec::new(),
     }));
+
+    let last_time = std::cell::Cell::new(0.0);
 
     let mut sim = SimConnect::open("SaltyReplay",  move |sim, recv| match recv {
         SimConnectRecv::SimObjectData(event) => match event.id() {
             0 => {
+                // Calculate delta time
+                let now = SystemTime::now().duration_since(UNIX_EPOCH).expect("Time went backwards").as_secs_f64();
+                if last_time.get() == 0.0 {
+                    last_time.set(now);
+                }
+                let delta_time = now - last_time.get();
+                last_time.set(now);
+                println!("{}", delta_time * 1000.0);
+
                 // Write to file
                 /* let data = event.into::<AircraftData>(sim).unwrap();
                 let mut file = OpenOptions::new()
                     .write(true)
                     .append(false)
                     .create(true)
-                    .open("data80.fsreplay")
+                    .open("test_replay.json")
                     .unwrap();
                 json_data.lock().unwrap().data.push(*data);
-                json_data.lock().unwrap().write_to_json(&mut file) */
+                json_data.lock().unwrap().delta_times.push(delta_time * 1000.0);
+                json_data.lock().unwrap().write_to_json(&mut file); */
             },
             _ => {}
         },

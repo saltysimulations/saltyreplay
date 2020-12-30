@@ -40,6 +40,7 @@ pub struct AircraftData {
 #[derive(Debug, Serialize, Deserialize)]
 pub struct JsonData {
     pub data: Vec<AircraftData>,
+    pub delta_times: Vec<f64>,
 }
 
 // TODO: Write a system to record (and play) data consinstantly, instead of every frame. Currently, the speed of the replay is determined by FPS. 
@@ -81,7 +82,7 @@ impl AircraftData {
                         .unwrap(),
                 },
             );
-            sleep(Duration::from_millis(36));
+            sleep(Duration::from_millis(parsed["delta_times"][i].as_f64().unwrap().round() as u64));
         }
     }
 }
