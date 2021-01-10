@@ -34,27 +34,20 @@ use web_view::*;
 
 mod aircraft_movement;
 mod simconnect_data;
-
-#[actix_web::main]
-async fn set_up_server() -> std::io::Result<()> {
-    HttpServer::new(|| App::new().service(fs::Files::new("/", "src/web/build").show_files_listing()))
-        .bind("127.0.0.1:5000")?
-        .run()
-        .await
-}
+mod server;
 
 fn main() {
-    thread::spawn(|| match set_up_server() {
+    thread::spawn(|| match server::set_up_server() {
         Ok(()) => Ok(()),
         Err(e) => Err(e),
     });
 
-    let mut _file_to_read = File::open("replay_example.json").unwrap();
+    let mut _file_to_read = File::open("replays/replay_example.json").unwrap();
 
     // TODO: Integrate the UI with the replay logic
     web_view::builder()
         .title("FSReplay")
-        .content(Content::Url("http://127.0.0.1:5000"))
+        .content(Content::Url("http://127.0.0.1:5000/index.html"))
         .size(1200, 720)
         .resizable(false)
         .debug(true)
@@ -75,6 +68,7 @@ fn main() {
         .unwrap();
 
     let mut json_data = Arc::new(Mutex::new(JsonData {
+        timestamp: SystemTime::now().duration_since(UNIX_EPOCH).unwrap().as_secs_f64().round() as u64,
         data: Vec::new(),
         delta_times: Vec::new(),
     }));
@@ -113,7 +107,7 @@ fn main() {
     sim.request_data_on_sim_object::<AircraftData>(0, SIMCONNECT_OBJECT_ID_USER, Period::SimFrame).unwrap();
 
     // Playing
-    AircraftData::read_from_json(&mut _file_to_read, &mut sim);
+    // AircraftData::read_from_json(&mut _file_to_read, &mut sim);
 
     loop {
         sim.call_dispatch().unwrap();

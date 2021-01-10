@@ -18,6 +18,7 @@
 
 use serde_json::Value;
 use serde::{Deserialize, Serialize};
+use time::SystemTime;
 use std::{
     clone::Clone,
     io::{Read, Write},
@@ -26,7 +27,8 @@ use std::{
     pin::Pin,
     boxed::Box,
     fs,
-    writeln
+    time,
+    writeln,
 };
 use msfs::sim_connect::data_definition;
 
@@ -57,6 +59,7 @@ pub struct AircraftData {
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct JsonData {
+    pub timestamp: u64,
     pub data: Vec<AircraftData>,
     pub delta_times: Vec<f64>,
 }
@@ -109,5 +112,23 @@ impl JsonData {
     pub fn write_to_json(&self, file: &mut fs::File) {
         let j = serde_json::to_string(&self).unwrap();
         writeln!(file, "{}", j).unwrap();
+    }
+    pub fn get_length(&self) -> f64 {
+        let mut total = 0;
+        for time in self.delta_times.iter() {
+            total += time.round() as u64;
+        }
+        Duration::from_millis(total).as_secs_f64()
+    }
+
+    // TODO: Implement a way to get the area / airport where the replay was made and the aircraft
+    pub fn get_area(&self) -> String {
+        String::from("ENZV")
+    }
+    pub fn get_aircraft(&self) -> String {
+        String::from("A32N")
+    }
+    pub fn get_timestamp(&self) -> u64 {
+        self.timestamp
     }
 }
