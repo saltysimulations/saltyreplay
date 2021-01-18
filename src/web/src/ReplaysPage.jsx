@@ -1,18 +1,27 @@
-import React, { useState } from "react";
-import replays from "./replays.json";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 const ReplaysPage = () => {
+  const [replays, setReplays] = useState({ data: [] });
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await axios("replaydata");
+      setReplays(result.data);
+    };
+    fetchData();
+  }, []);
+
   return (
     <section className="replays-page-container">
       <div className="replays-title">
         <h1>Replays</h1>
       </div>
       <div className="replays">
-        {replays.replays.map((replay) => {
+        {replays.data.map((replay) => {
           let imgSize = "small-replay-play-button";
-
           // Temporary solution, just for setting the proper image size for the big tiles.
-          if (replay.id === 1 || replay.id === 4) {
+          if (replay.id === 0 || replay.id === 3) {
             imgSize = "replay-play-button";
           }
           return <Replay data={replay} imgSize={imgSize} />;
