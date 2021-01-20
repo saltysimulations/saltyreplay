@@ -15,21 +15,15 @@ SaltyReplay is a **work in progress** and should not be used outside of testing 
 ### UI
 * The replay logic is not currently tied to the UI. 
 * The CSS is very badly made with too much absolute and relative positioning used, which makes for a non-resizable window for now. Ideally, the CSS should be reworked to allow resizing.
-* A way to properly show replays in the replays page has to be implemented. A placeholder JSON is currently used.
 * Routing to different pages is sometimes broken.
-* The content served by actix-web sometimes displays incorrectly.
-### Other
-* Some code cleanup is needed to improve readability.
 
-## Setup
+## Setup for development
 ### Dependencies
 * Node.js
 * Rust stable
 ### Building
-* Navigate to the web folder -  `cd src/web`
-* Install Node dependencies and build React project - `npm install && npm run build`
-* Navigate to the root folder - `cd..` `cd..`
-* Build Rust project - `cargo build`
+* Install Node dependencies and start React dev server - `npm install` `npm start`
+* Start Tauri application  - `npm run tauri dev`
 * Execute this command in an **administrative** command prompt - `checknetisolation LoopbackExempt -a -n=Microsoft.Win32WebViewHost_cw5n1h2txyewy` (This is required because Edge does not allow loopback by default, which is required by the local server. This is currently a workaround until a better solution can be found later.)
 
 ## FAQ
@@ -46,4 +40,4 @@ A: Short answer is that the average simmer shouldn't. SaltyReplay is not in a we
 A: Firstly, join our Discord at the top of the readme and do the setup process mentioned above. The list of major issues is located at the top of this readme, and all issues, bugs and requests are handled through GitHub issues. 
 
 ## License
-All contents of this repository are licensed under the GNU General Public License version 3. See [LICENSE](https://github.com/saltysimulations/saltyreplay/blob/master/LICENSE). For the contents of the "web-view" directory, [this copyright notice](https://github.com/saltysimulations/saltyreplay/blob/master/web-view/NOTICE) applies (Originally distributed under MIT). The use of the web-view library locally is temporary, as a slightly older version has to be used in order to avoid a bug.
+All contents of this repository are licensed under the GNU General Public License version 3. See [LICENSE](https://github.com/saltysimulations/saltyreplay/blob/master/LICENSE).
