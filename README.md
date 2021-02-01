@@ -22,9 +22,9 @@ SaltyReplay is a **work in progress** and should not be used outside of testing 
 * Node.js
 * Rust stable
 ### Building
+* Execute this command in an **administrative** command prompt - `checknetisolation LoopbackExempt -a -n=Microsoft.Win32WebViewHost_cw5n1h2txyewy` (This is required because Edge does not allow loopback by default, which is required by the local development server.)
 * Install Node dependencies and start React dev server - `npm install` `npm start`
 * Start Tauri application  - `npm run tauri dev`
-* Execute this command in an **administrative** command prompt - `checknetisolation LoopbackExempt -a -n=Microsoft.Win32WebViewHost_cw5n1h2txyewy` (This is required because Edge does not allow loopback by default, which is required by the local server. This is currently a workaround until a better solution can be found later.)
 
 ## FAQ
 **Q: When will it release?**
